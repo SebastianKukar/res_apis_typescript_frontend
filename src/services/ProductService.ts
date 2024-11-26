@@ -13,7 +13,7 @@ export async function addProduct(data : ProductData) {
             price: +data.price
         })
         if(result.success) {
-            const url = `http://localhost:4000/api/products/`
+            const url = `${import.meta.env.VITE_API_URL}/api/products/`
          await axios.post(url, {
                 name: result.output.name,
                 price: result.output.price
@@ -28,7 +28,7 @@ export async function addProduct(data : ProductData) {
 
 export async function getProducts() {
     try {
-        const url = `http://localhost:4000/api/products/`
+        const url = `${import.meta.env.VITE_API_URL}/api/products/`
         const {data} = await axios(url)
         const result = safeParse(ProductsSchema, data.data)
          if(result.success) {
@@ -43,7 +43,7 @@ export async function getProducts() {
 
 export async function getProductsById(id : Product['id']) {
     try {
-        const url = `http://localhost:4000/api/products/${id}`
+        const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`
         const {data} = await axios(url)
         const result = safeParse(ProductSchema, data.data)
         console.log(result)
@@ -67,7 +67,7 @@ export async function updateProduct(data : ProductData, id : Product['id']) {
             availability: toBoolean(data.availability.toString())
         })
         if(result.success) {
-            const url = `http://localhost:4000/api/products/${id}`
+            const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`
             await axios.put(url, result.output)    
         }
 
@@ -78,7 +78,7 @@ export async function updateProduct(data : ProductData, id : Product['id']) {
 
 export async function deleteProduct(id : Product['id']) {
     try {
-        const url = `http://localhost:4000/api/products/${id}`
+        const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`
         await axios.delete(url)
     } catch (error) {
         console.log(error)
@@ -87,10 +87,11 @@ export async function deleteProduct(id : Product['id']) {
 
 export async function updateProductAvailability(id : Product['id']) {
     try {
-        const url = `http://localhost:4000/api/products/${id}`
+        const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`
         await axios.patch(url)
     } catch (error) {
         console.log(error)
     }
 }
+
 
